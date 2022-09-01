@@ -1,11 +1,13 @@
 package dev.epegasus.baseproject.helper.utils
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.webkit.URLUtil
 import androidx.fragment.app.Fragment
 import dev.epegasus.baseproject.R
 import dev.epegasus.baseproject.helper.extensions.FragmentExtensions.showToast
+import dev.epegasus.baseproject.helper.firebase.FirebaseUtils.recordException
 
 object SettingUtils {
 
@@ -18,6 +20,22 @@ object SettingUtils {
                 it.startActivity(intent)
             } else
                 showToast(it.resources.getString(R.string.invalid_link))
+        }
+    }
+
+    fun Fragment.feedback() {
+        context?.let {
+            val emailIntent = Intent(Intent.ACTION_SEND)
+            emailIntent.type = "message/rfc822"
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(it.resources.getString(R.string.app_email)))
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, it.getString(R.string.app_name))
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Feedback...")
+            try {
+                it.startActivity(Intent.createChooser(emailIntent, "Send mail..."))
+            } catch (ex: ActivityNotFoundException) {
+                ex.recordException("SettingUtils: Feedback: ActivityNotFoundException: ")
+                showToast("There are no email clients installed.")
+            }
         }
     }
 
