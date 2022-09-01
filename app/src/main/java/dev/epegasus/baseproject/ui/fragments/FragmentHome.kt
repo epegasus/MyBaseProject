@@ -8,6 +8,7 @@ import dev.epegasus.baseproject.R
 import dev.epegasus.baseproject.databinding.FragmentHomeBinding
 import dev.epegasus.baseproject.helper.adapters.recyclerView.AdapterHomeFeature
 import dev.epegasus.baseproject.helper.extensions.FragmentExtensions.showToast
+import dev.epegasus.baseproject.helper.firebase.FirebaseUtils.recordException
 import dev.epegasus.baseproject.helper.interfaces.OnHomeFeatureClickListener
 import dev.epegasus.baseproject.helper.itemDecorator.MarginItemDecoration
 import dev.epegasus.baseproject.helper.models.HomeFeature
@@ -24,6 +25,7 @@ class FragmentHome : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+        throwAnException()
     }
 
     private fun initRecyclerView() {
@@ -35,5 +37,14 @@ class FragmentHome : BaseFragment<FragmentHomeBinding>() {
         binding.recyclerViewHome.addItemDecoration(MarginItemDecoration(32, 2))
         binding.recyclerViewHome.adapter = adapterHomeFeature
         adapterHomeFeature.submitList(diComponent.dpHomeFeatures.getHomeFeaturesList())
+    }
+
+    private fun throwAnException() {
+        // Following is the way to throw an exception intentionally as Non-Fatal Exception
+        try {
+            throw RuntimeException("Testing Exception")
+        } catch (ex: Exception) {
+            ex.recordException("throwAnException")
+        }
     }
 }
