@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import dev.epegasus.baseproject.R
 import dev.epegasus.baseproject.databinding.ActivityMainBinding
-import dev.epegasus.baseproject.helper.extensions.ActivityExtensions.hideStatusBar
-import dev.epegasus.baseproject.helper.extensions.ActivityExtensions.showStatusBar
+import dev.epegasus.baseproject.helper.extensions.ActivityExtensions.hideSystemUI
+import dev.epegasus.baseproject.helper.extensions.ActivityExtensions.showSystemUI
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentSplash ->
-                    hideStatusBar()
+                    hideSystemUI()
                 else ->
-                    showStatusBar()
+                    showSystemUI()
             }
         }
     }
