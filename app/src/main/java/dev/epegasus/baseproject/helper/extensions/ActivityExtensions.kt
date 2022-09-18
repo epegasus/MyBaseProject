@@ -6,6 +6,8 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -15,6 +17,14 @@ object ActivityExtensions {
 
     fun Activity.showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun AppCompatActivity.onBackPressedDispatcher(callback: () -> Unit) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                callback()
+            }
+        })
     }
 
     fun Activity.hideSystemUI(fcvContainerMain: FragmentContainerView) {

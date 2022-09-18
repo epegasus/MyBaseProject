@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentSplash ->
-                    hideSystemUI()
+                    hideSystemUI(binding.fcvContainerMain)
                 else ->
                     showSystemUI()
             }

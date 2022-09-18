@@ -1,13 +1,23 @@
 package dev.epegasus.baseproject.helper.extensions
 
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 
 object FragmentExtensions {
+
+    fun FragmentActivity.onBackPressed(callback: () -> Unit) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                callback()
+            }
+        })
+    }
 
     fun Fragment.showToast(message: String) {
         this.view?.let {
