@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import dev.epegasus.baseproject.R
 import dev.epegasus.baseproject.databinding.ActivityMainBinding
 import dev.epegasus.baseproject.helper.extensions.ActivityExtensions.hideSystemUI
+import dev.epegasus.baseproject.helper.extensions.ActivityExtensions.onBackPressedDispatcher
 import dev.epegasus.baseproject.helper.extensions.ActivityExtensions.showSystemUI
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initNavController()
+        registerBackPress()
         initNavListener()
     }
 
@@ -37,13 +39,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        when (navController.currentDestination?.id) {
-            R.id.fragmentHome -> {
-                navController.navigate(R.id.action_fragmentHome_to_exitDialog)
-                return
+    private fun registerBackPress() {
+        onBackPressedDispatcher {
+            when (navController.currentDestination?.id) {
+                R.id.fragmentHome -> navController.navigate(R.id.action_fragmentHome_to_exitDialog)
+                else -> finishAndRemoveTask()
             }
-            else -> super.onBackPressed()
         }
     }
 }

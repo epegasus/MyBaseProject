@@ -21,9 +21,10 @@ open class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     private var _binding: T? = null
     val binding get() = _binding!!
-    lateinit var globalContext: Context
-    lateinit var globalActivity: Activity
-    lateinit var mainActivity: Activity
+
+    val globalContext by lazy { binding.root.context }
+    val globalActivity by lazy { globalContext as Activity }
+    val mainActivity by lazy { globalActivity as MainActivity }
 
     val diComponent = DIComponent()
     var defaultTextColor = 0
@@ -35,9 +36,6 @@ open class BaseFragment<T : ViewDataBinding> : Fragment() {
     }
 
     private fun initializations() {
-        globalContext = binding.root.context
-        globalActivity = globalContext as Activity
-        mainActivity = globalActivity as MainActivity
         defaultTextColor = getColorFromAttr(androidx.appcompat.R.attr.colorControlNormal)
     }
 
