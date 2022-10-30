@@ -12,7 +12,7 @@ object GeneralUtils {
         Handler(Looper.getMainLooper()).postDelayed(block, delay)
     }
 
-    fun getString(context: Context, stringId: Int): String {
+    fun getResString(context: Context, stringId: Int): String {
         return context.resources.getString(stringId)
     }
 }

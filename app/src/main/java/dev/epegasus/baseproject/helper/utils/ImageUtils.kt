@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.card.MaterialCardView
 import dev.epegasus.baseproject.R
 import dev.epegasus.baseproject.helper.extensions.FragmentExtensions.showToast
-import dev.epegasus.baseproject.helper.utils.GeneralUtils.getString
+import dev.epegasus.baseproject.helper.utils.GeneralUtils.getResString
 import dev.epegasus.baseproject.helper.utils.LogUtils.showLog
 import java.io.File
 
@@ -28,7 +28,7 @@ class ImageUtils {
             context.startActivity(Intent.createChooser(shareIntent, "Choose an app"))
         } else {
             showLog(context, "sharePicture", "else", "Path not Exist")
-            showToast(getString(context, R.string.image_does_not_exist))
+            showToast(getResString(context, R.string.image_does_not_exist))
         }
     }
 
